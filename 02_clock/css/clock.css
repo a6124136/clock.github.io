@@ -1,0 +1,75 @@
+body{
+    background: url(../img/clock_wallpaper.png) center center;
+    background-size: cover;
+    background-repeat:no-repeat;
+}
+/* 完整影像背景圖 */
+
+.clock {              /*時鐘本體*/
+    width: 20rem;
+    height: 20rem;
+    border: 20px solid white; /*外框白實線*/
+    border-radius: 50%;
+    margin: 100px auto;/*上下100px左右置中*/
+    position: relative;
+    padding: 2rem;
+    box-shadow:
+      0 0 0 20px rgba(0,0,0,.5),/*外環黑擴散20px 50%透明*/
+      inset 0 0 0 10px #EFEFEF;/*向內白擴散10px*/
+    transform: rotate(90deg);/* ☆重要!!不知道為什麼參考範例的時鐘起始是-90度倒轉，只能用90度轉正*/
+  }
+
+  .clock-face {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    /* 時鐘表面100%尺寸配合時鐘大小*/
+  }
+  /* 鐘的圓心 */
+.clock-face:after{
+    content: "";
+    display: block;
+    width: 40px;
+    height: 40px;/*鐘心大小，高寬都要有不然看不到*/
+    border-radius:50% ;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    /*做完絕對定位左跟上各50%後中心點是以物體左上角為主，在用位移退回物體本身的一半尺寸回歸中心點*/
+    background-color: rgba(250, 250, 250, 1);
+}
+/* 所有時針的通用設定 */
+  .hand {
+    width: 50%;
+    height: 6px;/*預設針寬度*/
+    background: black;
+    position: absolute;
+    /* 所有針都共通了絕對位置不用重複寫 */
+    top: 50%;
+    transform-origin: 100% 50%;
+    /*變化的起始點 100%=物體的最右邊，50%上下中心點的位置 讓針從物體最右邊開始變化*/
+    transition: all 0.05s linear;
+    border-radius: 30% 0 0 30%;
+    text-align: center;/*把所有時針的文字置中*/
+  }
+
+  .hour-hand {
+    height: 20px;/*高度在時針內作為寬度，被轉90度後在左右兩側*/
+    margin-top: -5px;/*控制離圓心的距離，正數遠離、負數靠近*/
+    transition: all 1s linear; /* 通用設定0.05s變化對於時針太快*/
+    background-color: blue;
+    color:aliceblue;
+  }
+.min-hand{
+    height: 10px;/*高度在時針內作為寬度，被轉90度後在左右兩側*/
+    margin-top: -10px;/*控制離圓心的距離，正數遠離、負數靠近*/
+    transition: all 1s linear; /*通用設定0.05s變化對於分針太快改成1s*/
+    color:aliceblue;
+}
+  .second-hand {
+    background-color: red;
+    transition: all 0.05s cubic-bezier(0.25, 0.1, 0.84, 2.82); 
+    color:aliceblue;
+    /* 二次貝茲曲線cubic-bezier 做出秒針顫動的效果，範例給的寫不出來*/
+  }
